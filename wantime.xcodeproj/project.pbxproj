@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2F12E153B3129B6A955B341D /* Pods_wantime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80225B7ED6FFFC0D58E4CDE1 /* Pods_wantime.framework */; };
+		FD44D6942D8D57B900844545 /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = FD44D6932D8D57B900844545 /* GoogleMobileAds */; };
 		FDCE7BC32CEC5DB9007E7E90 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDCE7BC22CEC5DB9007E7E90 /* AVFoundation.framework */; };
 		FDCE7BC72CED495C007E7E90 /* timeup.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FDCE7BC62CED495C007E7E90 /* timeup.mp3 */; };
 		FDCE7BC92CEE2554007E7E90 /* 10.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FDCE7BC82CEE2554007E7E90 /* 10.mp3 */; };
@@ -24,6 +26,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		433AE67ECDD6844EFB1A6382 /* Pods-wantime.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wantime.release.xcconfig"; path = "Target Support Files/Pods-wantime/Pods-wantime.release.xcconfig"; sourceTree = "<group>"; };
+		80225B7ED6FFFC0D58E4CDE1 /* Pods_wantime.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_wantime.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D5108FC8C8962536569F0C81 /* Pods-wantime.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wantime.debug.xcconfig"; path = "Target Support Files/Pods-wantime/Pods-wantime.debug.xcconfig"; sourceTree = "<group>"; };
 		FDCE7B8F2CEAE65A007E7E90 /* wantime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = wantime.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FDCE7BC22CEC5DB9007E7E90 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		FDCE7BC62CED495C007E7E90 /* timeup.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = timeup.mp3; sourceTree = "<group>"; };
@@ -54,19 +59,31 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FD44D6942D8D57B900844545 /* GoogleMobileAds in Frameworks */,
 				FDCE7BC32CEC5DB9007E7E90 /* AVFoundation.framework in Frameworks */,
+				2F12E153B3129B6A955B341D /* Pods_wantime.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		46BD93A68B6EFADB686965AB /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D5108FC8C8962536569F0C81 /* Pods-wantime.debug.xcconfig */,
+				433AE67ECDD6844EFB1A6382 /* Pods-wantime.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		FDCE7B862CEAE65A007E7E90 = {
 			isa = PBXGroup;
 			children = (
 				FDCE7B912CEAE65A007E7E90 /* wantime */,
 				FDCE7BC12CEC5DB9007E7E90 /* Frameworks */,
 				FDCE7B902CEAE65A007E7E90 /* Products */,
+				46BD93A68B6EFADB686965AB /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -95,6 +112,7 @@
 				FDCE7BD22CEE2920007E7E90 /* 9.mp3 */,
 				FDCE7BE02CEEBEAF007E7E90 /* readygo.mp3 */,
 				FDCE7BE22CEED174007E7E90 /* 30s.mp3 */,
+				80225B7ED6FFFC0D58E4CDE1 /* Pods_wantime.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -106,6 +124,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FDCE7BA22CEAE65B007E7E90 /* Build configuration list for PBXNativeTarget "wantime" */;
 			buildPhases = (
+				AA4DB2BAB6E43B3600555B1D /* [CP] Check Pods Manifest.lock */,
 				FDCE7B8B2CEAE65A007E7E90 /* Sources */,
 				FDCE7B8C2CEAE65A007E7E90 /* Frameworks */,
 				FDCE7B8D2CEAE65A007E7E90 /* Resources */,
@@ -119,6 +138,7 @@
 			);
 			name = wantime;
 			packageProductDependencies = (
+				FD44D6932D8D57B900844545 /* GoogleMobileAds */,
 			);
 			productName = "Let's play with Your Dog";
 			productReference = FDCE7B8F2CEAE65A007E7E90 /* wantime.app */;
@@ -148,6 +168,9 @@
 			);
 			mainGroup = FDCE7B862CEAE65A007E7E90;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				FD44D6922D8D57B900844545 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = FDCE7B902CEAE65A007E7E90 /* Products */;
 			projectDirPath = "";
@@ -180,6 +203,31 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		AA4DB2BAB6E43B3600555B1D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-wantime-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		FDCE7B8B2CEAE65A007E7E90 /* Sources */ = {
@@ -248,6 +296,7 @@
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
+				NEW_SETTING = "";
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
@@ -305,6 +354,7 @@
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				NEW_SETTING = "";
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
@@ -313,6 +363,7 @@
 		};
 		FDCE7BA32CEAE65B007E7E90 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D5108FC8C8962536569F0C81 /* Pods-wantime.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -322,7 +373,7 @@
 				DEVELOPMENT_TEAM = 3Q9ZV57R4V;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "wantime-Info.plist";
+				INFOPLIST_FILE = "wantime/wantime-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = wantime;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -330,12 +381,12 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.shunsukeiida.wantime;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -346,6 +397,7 @@
 		};
 		FDCE7BA42CEAE65B007E7E90 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 433AE67ECDD6844EFB1A6382 /* Pods-wantime.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -355,7 +407,7 @@
 				DEVELOPMENT_TEAM = 3Q9ZV57R4V;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "wantime-Info.plist";
+				INFOPLIST_FILE = "wantime/wantime-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = wantime;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -363,12 +415,12 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.shunsukeiida.wantime;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -399,6 +451,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		FD44D6922D8D57B900844545 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/googleads/swift-package-manager-google-mobile-ads.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.2.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		FD44D6932D8D57B900844545 /* GoogleMobileAds */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FD44D6922D8D57B900844545 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */;
+			productName = GoogleMobileAds;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = FDCE7B872CEAE65A007E7E90 /* Project object */;
 }

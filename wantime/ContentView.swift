@@ -27,116 +27,158 @@ struct HomeView: View {
     @State private var isTutorialDialogPresented: Bool = false // チュートリアルダイアログ
     @State private var doNotShowAgain: Bool = false // 次回から表示しないチェック
     @State private var isHistoryPresented = false
+    @EnvironmentObject var historyManager:HistoryManager
+    @EnvironmentObject var adManager: InterstitialAdManager // ✅ HomeViewでも使える
+    @State private var shouldShowAdAfterResultInput = false
+
 
     var body: some View {
-        ZStack {
-            // 背景コンテンツ
-            VStack {
-                Text("Let's Enjoy!")
-                    .font(.largeTitle)
-                    .bold()
-                    .padding(.top, 50)
-
-                // ピッカー部分
-                HStack {
-                    Picker("Minutes", selection: $selectedMinutes) {
-                        ForEach(0..<11, id: \.self) { minute in
-                            Text("\(minute) 分").tag(minute)
-                        }
-                    }
-                    .pickerStyle(.wheel)
-                    .frame(width: 100, height: 150)
-                    .disabled(isRunning)
-
-                    Picker("Seconds", selection: $selectedSeconds) {
-                        ForEach([0, 10, 20, 30, 40, 50], id: \.self) { second in
-                            Text("\(second) 秒").tag(second)
-                        }
-                    }
-                    .pickerStyle(.wheel)
-                    .frame(width: 100, height: 150)
-                    .disabled(isRunning)
-                }
-                .padding()
-
-                Spacer()
-
-                // ボタン部分
-                HStack {
-                    // リセットボタン
-                    Button(action: resetTimer) {
-                        Circle()
-                            .fill(Color.yellow)
-                            .frame(width: 80, height: 80)
-                            .overlay(Text("Reset").foregroundColor(.black))
-                    }
-                    .disabled(isRunning || timeRemaining == selectedMinutes * 60 + selectedSeconds)
-
-                    Spacer().frame(width: 150) // 空白を追加
-
-                    // スタート・ストップボタン
-                    ZStack {
-                        if isRunning {
-                            // ストップボタン
-                            Button(action: stopTimer) {
-                                Circle()
-                                    .fill(Color.red)
-                                    .frame(width: 80, height: 80)
-                                    .overlay(Text("Stop").foregroundColor(.white))
+        NavigationStack{
+            
+            
+            ZStack {
+                // 背景コンテンツ
+                VStack {
+                    Text("Let's Enjoy!")
+                        .font(.largeTitle)
+                        .bold()
+                        .padding(.top, 50)
+                    
+                    // ピッカー部分
+                    HStack {
+                        Picker("Minutes", selection: $selectedMinutes) {
+                            ForEach(0..<11, id: \.self) { minute in
+                                Text("\(minute) 分").tag(minute)
                             }
-                            .transition(.scale)
-                        } else {
-                            // スタートボタン
-                            Button(action: startTimer) {
-                                Circle()
-                                    .fill(Color.green)
-                                    .frame(width: 80, height: 80)
-                                    .overlay(Text("Start").foregroundColor(.white))
-                            }
-                            .transition(.scale)
                         }
+                        .pickerStyle(.wheel)
+                        .frame(width: 100, height: 150)
+                        .disabled(isRunning)
+                        
+                        Picker("Seconds", selection: $selectedSeconds) {
+                            ForEach([0, 10, 20, 30, 40, 50], id: \.self) { second in
+                                Text("\(second) 秒").tag(second)
+                            }
+                        }
+                        .pickerStyle(.wheel)
+                        .frame(width: 100, height: 150)
+                        .disabled(isRunning)
                     }
-                    .animation(.default, value: isRunning)
+                    .padding()
+                    
+                    Spacer()
+                    
+                    // ボタン部分
+                    HStack {
+                        // リセットボタン
+                        Button(action: resetTimer) {
+                            Circle()
+                                .fill(Color.yellow)
+                                .frame(width: 80, height: 80)
+                                .overlay(Text("Reset").foregroundColor(.black))
+                        }
+                        .disabled(isRunning || timeRemaining == selectedMinutes * 60 + selectedSeconds)
+                        
+                        Spacer().frame(width: 50) // 空白を追加
+                        
+                        // 履歴画面へのナビゲーションボタン
+                        
+                        NavigationLink(destination: HistoryView().environmentObject(historyManager)) {
+                            Circle()
+                                .fill(Color.blue)
+                                .frame(width: 80, height: 80)
+                                .overlay(Text("履歴").foregroundColor(.white))
+                        }
+                        
+                        Spacer().frame(width: 50)
+                        
+                        // スタート・ストップボタン
+                        ZStack {
+                            if isRunning {
+                                // ストップボタン
+                                Button(action: stopTimer) {
+                                    Circle()
+                                        .fill(Color.red)
+                                        .frame(width: 80, height: 80)
+                                        .overlay(Text("Stop").foregroundColor(.white))
+                                }
+                                .transition(.scale)
+                            } else {
+                                // スタートボタン
+                                Button(action: startTimer) {
+                                    Circle()
+                                        .fill(Color.green)
+                                        .frame(width: 80, height: 80)
+                                        .overlay(Text("Start").foregroundColor(.white))
+                                }
+                                .transition(.scale)
+                            }
+                        }
+                        .animation(.default, value: isRunning)
+                    }
+                    .padding(.bottom, 100) // ボタンを画面下部に配置
+                    // ✅ バナー広告を追加（ここがポイント！）
+                        BannerAdView(adUnitID: "ca-app-pub-4742498529839819/5417973479") // ← テスト用ID
+                            .frame(width: 320, height: 50)
+                            .padding(.bottom, 10)
                 }
-                .padding(.bottom, 170) // ボタンを画面下部に配置
+                
+                // タイマー表示を画面中央に固定
+                Text(formatTime(timeRemaining))
+                    .font(.system(size: 100))
+                    .multilineTextAlignment(.center)
             }
-
-            // タイマー表示を画面中央に固定
-            Text(formatTime(timeRemaining))
-                .font(.system(size: 100))
-                .multilineTextAlignment(.center)
-        }
-        .padding()
-        .onAppear {
-            checkAndShowTutorial() // チュートリアルの表示チェック
-        }
-        .alert(isPresented: $isTutorialDialogPresented) {
-            Alert(
-                title: Text("アプリの使い方"),
-                message: Text("ここにアプリの説明文を記載します。"),
-                primaryButton: .default(Text("OK"), action: {
-                    if doNotShowAgain {
-                        UserDefaults.standard.set(true, forKey: "DoNotShowTutorial")
+            .padding()
+            .onAppear {
+                checkAndShowTutorial() // チュートリアルの表示チェック
+            }
+            .alert(isPresented: $isTutorialDialogPresented) {
+                Alert(
+                    title: Text("アプリの使い方"),
+                    message: Text("ここにアプリの説明文を記載します。"),
+                    primaryButton: .default(Text("OK"), action: {
+                        if doNotShowAgain {
+                            UserDefaults.standard.set(true, forKey: "DoNotShowTutorial")
+                        }
+                    }),
+                    secondaryButton: .cancel(Text("キャンセル"))
+                )
+            }
+            .alert(isPresented: $isAlertPresented) {
+                Alert(
+                    title: Text("タイマー終了"),
+                    message: Text("結果を入力しますか？"),
+                    primaryButton: .default(Text("はい")) {
+                        isResultInputPresented = true
+                    },
+                    secondaryButton: .cancel(Text("いいえ")) {
+                                showAdAfterCancel()
+                            }
+                )
+            }
+            .sheet(isPresented: $isResultInputPresented, onDismiss: {
+                if shouldShowAdAfterResultInput && AdDisplayCounter.shouldShowAd(threshold: 3) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                        if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                           let rootVC = scene.windows.first?.rootViewController {
+                            adManager.showAd(from: rootVC) {
+                                print("✅ 広告が閉じられた後に処理")
+                                shouldShowAdAfterResultInput = false
+                            }
+                        }
                     }
-                }),
-                secondaryButton: .cancel(Text("キャンセル"))
-            )
+                } else {
+                    shouldShowAdAfterResultInput = false
+                    print("🟦 今回は広告スキップ（3回に1回）")
+                }
+            }) {
+                ResultInputView(shouldShowAd: $shouldShowAdAfterResultInput)
+                    .environmentObject(historyManager)
+            }
         }
-        .alert(isPresented: $isAlertPresented) {
-            Alert(
-                title: Text("タイマー終了"),
-                message: Text("結果を入力しますか？"),
-                primaryButton: .default(Text("はい")) {
-                    isResultInputPresented = true
-                },
-                secondaryButton: .cancel(Text("いいえ"))
-            )
-        }
-        .sheet(isPresented: $isResultInputPresented) {
-            ResultInputView()
-        }
+        
     }
-
+    
     private func checkAndShowTutorial() {
         let doNotShow = UserDefaults.standard.bool(forKey: "DoNotShowTutorial")
         if !doNotShow {
@@ -452,6 +494,20 @@ struct HomeView: View {
             print("Error playing sound: \(error)")
         }
     }
+    private func showAdAfterCancel() {
+        if AdDisplayCounter.shouldShowAd(threshold: 3) { // ← 3回に1回
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                   let rootVC = scene.windows.first?.rootViewController {
+                    adManager.showAd(from: rootVC) {
+                        print("✅ 『いいえ』からの広告が閉じられた後の処理")
+                    }
+                }
+            }
+        } else {
+            print("🟦 『いいえ』だけど今回は広告スキップ（3回に1回）")
+        }
+    }
 
 }
 
@@ -494,6 +550,21 @@ class HistoryManager: ObservableObject {
         }
     }
 }
+
+class AdDisplayCounter {
+    static let key = "AdDisplayCount"
+
+    static func shouldShowAd(threshold: Int = 3) -> Bool {
+        let count = UserDefaults.standard.integer(forKey: key) + 1
+        UserDefaults.standard.set(count, forKey: key)
+        return count % threshold == 0
+    }
+
+    static func reset() {
+        UserDefaults.standard.set(0, forKey: key)
+    }
+}
+
 struct HistoryItem: Identifiable, Codable {
     let id: UUID
     let date: Date
@@ -504,5 +575,6 @@ struct HistoryItem: Identifiable, Codable {
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView()
+            .environmentObject(HistoryManager()) // ← ここで環境オブジェクトを追加
     }
 }

@@ -13,19 +13,17 @@ struct HistoryView: View {
 
     var body: some View {
         VStack {
-            Text("履歴")
-                .font(.largeTitle)
-                .bold()
-                .padding()
 
             List(historyManager.history.prefix(10)) { item in
                 VStack(alignment: .leading) {
-                    Text("日時: \(formatDate(item.date))")
-                    Text("種類: \(item.type)")
-                    Text("回数: \(item.count)")
+                    Text("日時日時: \(formatDate(item.date))")
+                    Text("種類種類: \(item.type)")
+                    Text("回数回数: \(item.count)")
                 }
                 .padding(.vertical, 5)
             }
+            .navigationTitle("履歴")
+
         }
     }
 
