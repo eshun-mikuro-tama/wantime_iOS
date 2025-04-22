@@ -25,3 +25,4 @@ struct BannerAdView: UIViewRepresentable {
         // 更新処理不要
     }
 }
+
